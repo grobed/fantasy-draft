@@ -16,10 +16,15 @@ async function handleRequest(request) {
 }
 
 async function handleFormRequest(request) {
-  // Logic for handling requests to the root URL (showing the form)
-  // This could include serving an HTML form page
-  return new Response('This is the form page');
+  // Fetch the HTML content of your form from a specific URL
+  const formHTMLResponse = await fetch('https://example.com/path/to/your/form.html');
+  
+  // Return the HTML content as the response
+  return new Response(await formHTMLResponse.text(), {
+    headers: { 'Content-Type': 'text/html' },
+  });
 }
+
 
 async function handleSubmitRequest(request) {
   // Logic for handling form submissions at the /submit route
