@@ -17,7 +17,7 @@ async function handleRequest(request) {
 
 async function handleFormRequest(request) {
   // Fetch the HTML content of your form from a specific URL
-  const formHTMLResponse = await fetch('https://raw.githubusercontent.com/grobed/fantasy-draft/main/form.html');
+  const formHTMLResponse = await fetch('https://raw.githubusercontent.com/grobed/fantasy-draft/main/pages/index.html');
   
   // Return the HTML content as the response
   return new Response(await formHTMLResponse.text(), {
