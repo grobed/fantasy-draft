@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Draft Form</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Include any additional stylesheets if needed -->
+</head>
+<body>
+    <h1>Fantasy Draft Form</h1>
+    
+    <form id="draftForm">
+        <label for="selectedItem">Select an Item:</label>
+        <select id="selectedItem" name="selectedItem">
+            <option value="item1">Item 1</option>
+            <option value="item2">Item 2</option>
+            <option value="item3">Item 3</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('draftForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get the selected item value
+            var selectedItem = document.getElementById('selectedItem').value;
+
+            // Send a request to the Cloudflare Worker script with the selected item
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ selectedItem: selectedItem })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the Cloudflare Worker (if needed)
+                console.log('Response from Cloudflare Worker:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
