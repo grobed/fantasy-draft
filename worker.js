@@ -3,28 +3,26 @@ addEventListener('fetch', (event) => {
 });
 
 async function handleRequest(request) {
-  // Check authentication using Cloudflare Access
+  const url = new URL(request.url);
 
-  // Handle different routes
-  if (request.method === 'POST' && request.url.endsWith('/submit')) {
-    return handleSubmit(request);
-  } else if (request.method === 'GET' && request.url.endsWith('/form')) {
-    return new Response(getFormHTML(), {
-      headers: { 'Content-Type': 'text/html' },
-    });
+  // Define route for the root URL
+  if (url.pathname === '/') {
+    return handleFormRequest(request);
+  } else if (url.pathname === '/submit' && request.method === 'POST') {
+    return handleSubmitRequest(request);
   } else {
     return new Response('Not Found', { status: 404 });
   }
 }
 
-async function handleSubmit(request) {
-  // Handle form submission logic
-  // Read from Google Sheet, remove selected item, notify the next person, etc.
-
-  return new Response('Form submitted successfully');
+async function handleFormRequest(request) {
+  // Logic for handling requests to the root URL (showing the form)
+  // This could include serving an HTML form page
+  return new Response('This is the form page');
 }
 
-function getFormHTML() {
-  // Generate and return HTML for the form
-  // Include dropdown menu, submit button, etc.
+async function handleSubmitRequest(request) {
+  // Logic for handling form submissions at the /submit route
+  // This could include processing form data and sending notifications
+  return new Response('Form submitted successfully');
 }
